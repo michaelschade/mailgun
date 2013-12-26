@@ -68,6 +68,7 @@ module Mailgun
   def self.submit(method, url, parameters={})
     begin
       parameters = {:params => parameters} if method == :get
+      parameters['o:testmode'] = 'yes' if Mailgun.test_mode
       return JSON(RestClient.send(method, url, parameters))
     rescue => e
       error_message = nil
